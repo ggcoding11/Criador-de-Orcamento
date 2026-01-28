@@ -1,0 +1,3 @@
+- Eu já consegui colocar a adição de tags
+- Agora preciso conseguir remover as tags com o clique
+- E passar as tags adicionadas pro documento

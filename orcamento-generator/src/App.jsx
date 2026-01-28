@@ -17,6 +17,9 @@ const App = () => {
   const [maoDeObra, setMaoDeObra] = useState([]);
   const [materiais, setMateriais] = useState([]);
 
+  const [itemMaoDeObra, setItemMaoDeObra] = useState("");
+  const [itemMateriais, setItemMateriais] = useState("");
+
   const [opcoes, setOpcoes] = useState(["Sim", "Não"]);
 
   const [temArea, setTemArea] = useState(opcoes[1]);
@@ -31,7 +34,7 @@ const App = () => {
 
   return (
     <div
-      className="container-fluid d-flex justify-content-center align-items-center min-vh-100 "
+      className="container-fluid d-flex justify-content-center align-items-center min-vh-100"
       id="main"
     >
       <div className="row p-4 w-100">
@@ -54,6 +57,7 @@ const App = () => {
                       type="text"
                       className="form-control"
                       id="servico"
+                      placeholder="Orçamento de piso industrial"
                       onChange={(e) => setServico(e.target.value)}
                       value={servico}
                       required
@@ -61,12 +65,13 @@ const App = () => {
                   </div>
                   <div className="col-12 col-sm-6">
                     <label htmlFor="nome-att" className="form-label">
-                      Nome do cliente
+                      Aos cuidados de...
                     </label>
                     <input
                       type="text"
                       className="form-control"
                       id="nome-att"
+                      placeholder="Edson"
                       onChange={(e) => setNomeCliente(e.target.value)}
                       value={nomeCliente}
                       required
@@ -77,7 +82,7 @@ const App = () => {
 
               <div className="mb-3">
                 <div className="row">
-                  <div className="col-12 col-sm-6">
+                  <div className="col-12 col-sm-6 mb-2">
                     <label>Tem área a ser concretada?</label>
 
                     <div className="form-check">
@@ -117,12 +122,13 @@ const App = () => {
                   <div className="col-12 col-sm-6">
                     <div>
                       <label htmlFor="area-concretada" className="form-label">
-                        Área a ser concretada
+                        Área a ser concretada (em m²)
                       </label>
                       <input
                         type="number"
                         className="form-control"
                         id="area-concretada"
+                        placeholder="200"
                         onChange={(e) => setAreaConcretada(e.target.value)}
                         value={areaConcretada}
                         required={temArea === opcoes[0]}
@@ -182,15 +188,30 @@ const App = () => {
                     aria-label="Recipient’s username"
                     aria-describedby="button-addon2"
                     disabled={temMaoDeObra === opcoes[1]}
+                    value={itemMaoDeObra}
+                    onChange={(e) => setItemMaoDeObra(e.target.value)}
                   />
                   <button
                     className="btn btn-outline-secondary"
                     type="button"
                     id="button-addon2"
                     disabled={temMaoDeObra === opcoes[1]}
+                    onClick={() => {
+                      setMaoDeObra([...maoDeObra, itemMaoDeObra]);
+                      setItemMaoDeObra("");
+                    }}
                   >
                     Adicionar
                   </button>
+                </div>
+
+                <div className="d-flex flex-wrap gap-2 mt-3">
+                  {maoDeObra.map((item) => (
+                    <div className="d-flex bg-primary text-white p-2 rounded-3 gap-2">
+                      <span className="">{item}</span>
+                      <i class="bi bi-x-lg"></i>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -243,15 +264,30 @@ const App = () => {
                     aria-label="Recipient’s username"
                     aria-describedby="button-addon2"
                     disabled={temMateriais === opcoes[1]}
+                    value={itemMateriais}
+                    onChange={(e) => setItemMateriais(e.target.value)}
                   />
                   <button
                     className="btn btn-outline-secondary"
                     type="button"
                     id="button-addon2"
                     disabled={temMateriais === opcoes[1]}
+                    onClick={() => {
+                      setMateriais([...materiais, itemMateriais]);
+                      setItemMateriais("");
+                    }}
                   >
                     Adicionar
                   </button>
+                </div>
+
+                <div className="d-flex flex-wrap gap-2 mt-3">
+                  {materiais.map((item) => (
+                    <div className="d-flex bg-primary text-white p-2 rounded-3 gap-2">
+                      <span className="">{item}</span>
+                      <i class="bi bi-x-lg"></i>
+                    </div>
+                  ))}
                 </div>
               </div>
 
@@ -278,6 +314,7 @@ const App = () => {
                       type="text"
                       className="form-control"
                       id="responsavel"
+                      placeholder="Gilmar"
                       onChange={(e) => setResponsavel(e.target.value)}
                       value={responsavel}
                       required
