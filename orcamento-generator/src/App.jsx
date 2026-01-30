@@ -9,13 +9,16 @@ import imgOrcamento from "../public/img/icon-orcamento.png";
 const App = () => {
   const [showOrcamento, setShowOrcamento] = useState(false);
 
-  const [servico, setServico] = useState("");
   const [nomeCliente, setNomeCliente] = useState("");
-  const [areaConcretada, setAreaConcretada] = useState();
   const [responsavel, setResponsavel] = useState("");
-  const [preco, setPreco] = useState();
+
+  const [servico, setServico] = useState("");
+  const [areaConcretada, setAreaConcretada] = useState("");
+  const [preco, setPreco] = useState("");
   const [maoDeObra, setMaoDeObra] = useState([]);
   const [materiais, setMateriais] = useState([]);
+
+  const [orcamentos, setOrcamentos] = useState([]);
 
   const [itemMaoDeObra, setItemMaoDeObra] = useState("");
   const [itemMateriais, setItemMateriais] = useState("");
@@ -37,6 +40,29 @@ const App = () => {
     setMateriais(materiais.filter((item) => item.id != id));
   };
 
+  const adicionarOrcamento = () => {
+    setOrcamentos([
+      ...orcamentos,
+      {
+        servico: servico,
+        areaConcretada: areaConcretada,
+        preco: preco,
+        maoDeObra: maoDeObra,
+        materiais: materiais,
+      },
+    ]);
+
+    setServico("");
+    setAreaConcretada("");
+    setPreco("");
+    setMaoDeObra([]);
+    setMateriais([]);
+  };
+
+  const finalizarDocumento = () => {
+    setShowOrcamento(true);
+  };
+
   useEffect(() => {
     console.log("Tem area ", temArea);
     console.log("Tem M.O ", temMaoDeObra);
@@ -47,6 +73,10 @@ const App = () => {
     console.log(maoDeObra);
     console.log(materiais);
   }, [maoDeObra, materiais]);
+
+  useEffect(() => {
+    console.log(orcamentos);
+  }, [orcamentos]);
 
   return (
     <div
@@ -60,7 +90,7 @@ const App = () => {
               className="w-100"
               onSubmit={(e) => {
                 e.preventDefault();
-                setShowOrcamento(true);
+                adicionarOrcamento();
               }}
             >
               <div className="mb-3">
@@ -354,9 +384,21 @@ const App = () => {
                 </div>
               </div>
 
-              <button className="btn btn-primary w-100" type="submit">
-                Criar orçamento
-              </button>
+              <div className="d-flex flex-column gap-2">
+                <button className="btn btn-primary w-100" type="submit">
+                  Adicionar orçamento
+                </button>
+
+                {orcamentos.length > 0 && (
+                  <button
+                    className="btn btn-success w-100"
+                    type="button"
+                    onClick={finalizarDocumento}
+                  >
+                    Finalizar documento
+                  </button>
+                )}
+              </div>
             </form>
           </div>
         </div>
