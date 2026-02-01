@@ -1,2 +1,2 @@
-- Fazer com que o servico quebre de linha de ficar muito grande corretamente
-- Terminar o resto das tarefas
+- Dar uma geral no CSS do documento e da própria página, só pra deixar tudo uniforme
+- Continuar com o resto do projeto

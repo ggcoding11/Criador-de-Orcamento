@@ -50,11 +50,15 @@ const styles = StyleSheet.create({
   texto: {
     paddingTop: 10,
     paddingBottom: 10,
-    border: "1px solid red",
   },
 
   textoNormal: {
     fontFamily: "PT-Serif",
+  },
+
+  preco: {
+    backgroundColor: "yellow",
+    width: "200px",
   },
 
   orcamento: {
@@ -134,26 +138,18 @@ const Documento = ({ nomeCliente, responsavel, orcamentos }) => {
   return (
     <Document>
       <Page style={styles.page}>
-        <View style={styles.title}>
-          <Text>GV PISOS - PISOS INDUSTRIAIS</Text>
-        </View>
+        <View>
+          <Text style={styles.title}>GV PISOS - PISOS INDUSTRIAIS</Text>
 
-        <View style={styles.subtitle}>
-          <Text>A ESPECIALIZADA A MAIS DE 25 ANOS</Text>
-        </View>
+          <Text style={styles.subtitle}>A ESPECIALIZADA A MAIS DE 25 ANOS</Text>
 
-        <View style={styles.telefone}>
-          <Text>(44) 99973-7827 / (44) 99973-7837</Text>
-        </View>
+          <Text style={styles.telefone}>(44) 99973-7827 / (44) 99973-7837</Text>
 
-        <View style={styles.texto}>
-          <Text>
+          <Text style={styles.texto}>
             MARINGÁ, {diaHoje} DE {mesExtenso} DE {anoAtual}
           </Text>
-        </View>
 
-        <View style={styles.texto}>
-          <Text>ATT: {nomeCliente}</Text>
+          <Text style={styles.texto}>ATT: {nomeCliente}</Text>
         </View>
 
         {orcamentos.map((orcamento) => (
@@ -163,11 +159,9 @@ const Documento = ({ nomeCliente, responsavel, orcamentos }) => {
             </Text>
 
             {orcamento.temArea === "Sim" && (
-              <View>
-                <Text style={styles.texto}>
-                  ÁREA A SER CONCRETADA: {orcamento.areaConcretada} m²
-                </Text>
-              </View>
+              <Text style={styles.texto}>
+                ÁREA A SER CONCRETADA: {orcamento.areaConcretada} m²
+              </Text>
             )}
 
             {orcamento.temMaoDeObra === "Sim" && (
@@ -194,9 +188,14 @@ const Documento = ({ nomeCliente, responsavel, orcamentos }) => {
               </View>
             )}
 
-            <Text style={styles.texto}>
-              PREÇO POR M²: R$ {Number(orcamento.preco).toFixed(2)}
-            </Text>
+            <View style={styles.texto}>
+              <Text style={styles.preco}>
+                {orcamento.formatoPreco === "Por m²"
+                  ? "PREÇO POR M²"
+                  : "PREÇO TOTAL"}
+                : R$ {Number(orcamento.preco).toFixed(2)}
+              </Text>
+            </View>
           </View>
         ))}
 

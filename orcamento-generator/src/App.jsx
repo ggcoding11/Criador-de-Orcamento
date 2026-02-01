@@ -24,10 +24,12 @@ const App = () => {
   const [itemMateriais, setItemMateriais] = useState("");
 
   const [opcoes, setOpcoes] = useState(["Sim", "Não"]);
+  const [opcoesPreco, setOpcoesPreco] = useState(["Por m²", "Preço total"]);
 
   const [temArea, setTemArea] = useState(opcoes[1]);
   const [temMaoDeObra, setTemMaoDeObra] = useState(opcoes[1]);
   const [temMateriais, setTemMateriais] = useState(opcoes[1]);
+  const [formatoPreco, setFormatoPreco] = useState(opcoesPreco[0]);
 
   const idItemMOAtual = useRef(0);
   const idItemMaterial = useRef(0);
@@ -52,6 +54,7 @@ const App = () => {
         temMaoDeObra,
         temArea,
         temMateriais,
+        formatoPreco,
       },
     ]);
 
@@ -63,6 +66,7 @@ const App = () => {
     setTemArea(opcoes[1]);
     setTemMaoDeObra(opcoes[1]);
     setTemMateriais(opcoes[1]);
+    setFormatoPreco(opcoesPreco[0]);
   };
 
   const finalizarDocumento = () => {
@@ -135,39 +139,23 @@ const App = () => {
               <div className="mb-3">
                 <label>Tem área a ser concretada?</label>
 
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="input-area"
-                    id="comArea"
-                    value={opcoes[0]}
-                    checked={temArea === opcoes[0]}
-                    onChange={(e) => {
-                      setTemArea(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="comArea">
-                    {opcoes[0]}
-                  </label>
-                </div>
-
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="input-area"
-                    id="semArea"
-                    value={opcoes[1]}
-                    checked={temArea === opcoes[1]}
-                    onChange={(e) => {
-                      setTemArea(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="semArea">
-                    {opcoes[1]}
-                  </label>
-                </div>
+                {opcoes.map((opcao) => (
+                  <div className="form-check">
+                    <label className="form-check-label">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="input-area"
+                        value={opcao}
+                        checked={temArea === opcao}
+                        onChange={(e) => {
+                          setTemArea(e.target.value);
+                        }}
+                      />
+                      {opcao}
+                    </label>
+                  </div>
+                ))}
               </div>
 
               {temArea === opcoes[0] && (
@@ -189,39 +177,23 @@ const App = () => {
               <div className="mb-3">
                 <label>Tem mão de obra?</label>
 
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="input-mao-de-obra"
-                    id="comMaoDeObra"
-                    value={opcoes[0]}
-                    checked={temMaoDeObra === opcoes[0]}
-                    onChange={(e) => {
-                      setTemMaoDeObra(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="comMaoDeObra">
-                    {opcoes[0]}
-                  </label>
-                </div>
-
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="input-mao-de-obra"
-                    id="semMaoDeObra"
-                    value={opcoes[1]}
-                    checked={temMaoDeObra === opcoes[1]}
-                    onChange={(e) => {
-                      setTemMaoDeObra(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="semMaoDeObra">
-                    {opcoes[1]}
-                  </label>
-                </div>
+                {opcoes.map((opcao) => (
+                  <div className="form-check">
+                    <label className="form-check-label">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="input-mao-de-obra"
+                        value={opcao}
+                        checked={temMaoDeObra === opcao}
+                        onChange={(e) => {
+                          setTemMaoDeObra(e.target.value);
+                        }}
+                      />
+                      {opcao}
+                    </label>
+                  </div>
+                ))}
               </div>
 
               {temMaoDeObra === opcoes[0] && (
@@ -231,16 +203,12 @@ const App = () => {
                       type="text"
                       className="form-control"
                       placeholder="Lançar concreto e polir"
-                      aria-label="Recipient’s username"
-                      aria-describedby="button-addon2"
-                      disabled={temMaoDeObra === opcoes[1]}
                       value={itemMaoDeObra}
                       onChange={(e) => setItemMaoDeObra(e.target.value)}
                     />
                     <button
                       className="btn btn-outline-secondary"
                       type="button"
-                      id="button-addon2"
                       onClick={() => {
                         setMaoDeObra([
                           ...maoDeObra,
@@ -274,39 +242,23 @@ const App = () => {
               <div className="mb-3">
                 <label>Tem materiais?</label>
 
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="input-materiais"
-                    id="comMateriais"
-                    value={opcoes[0]}
-                    checked={temMateriais === opcoes[0]}
-                    onChange={(e) => {
-                      setTemMateriais(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="comMateriais">
-                    {opcoes[0]}
-                  </label>
-                </div>
-
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="input-materiais"
-                    id="semMateriais"
-                    value={opcoes[1]}
-                    checked={temMateriais === opcoes[1]}
-                    onChange={(e) => {
-                      setTemMateriais(e.target.value);
-                    }}
-                  />
-                  <label className="form-check-label" htmlFor="semMateriais">
-                    {opcoes[1]}
-                  </label>
-                </div>
+                {opcoes.map((opcao) => (
+                  <div className="form-check">
+                    <label className="form-check-label">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="input-materiais"
+                        value={opcao}
+                        checked={temMateriais === opcao}
+                        onChange={(e) => {
+                          setTemMateriais(e.target.value);
+                        }}
+                      />
+                      {opcao}
+                    </label>
+                  </div>
+                ))}
               </div>
 
               {temMateriais === opcoes[0] && (
@@ -318,8 +270,6 @@ const App = () => {
                       type="text"
                       className="form-control"
                       placeholder="Concreto 30 MPA"
-                      aria-label="Recipient’s username"
-                      aria-describedby="button-addon2"
                       disabled={temMateriais === opcoes[1]}
                       value={itemMateriais}
                       onChange={(e) => setItemMateriais(e.target.value)}
@@ -327,7 +277,6 @@ const App = () => {
                     <button
                       className="btn btn-outline-secondary"
                       type="button"
-                      id="button-addon2"
                       onClick={() => {
                         setMateriais([
                           ...materiais,
@@ -359,15 +308,39 @@ const App = () => {
               )}
 
               <div className="mb-3">
+                <label>Qual será o preço?</label>
+
+                {opcoesPreco.map((opcao) => (
+                  <div className="form-check">
+                    <label>
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="input-tipo-preco"
+                        value={opcao}
+                        checked={formatoPreco === opcao}
+                        onChange={(e) => {
+                          setFormatoPreco(e.target.value);
+                        }}
+                      />
+                      {opcao}
+                    </label>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mb-3">
                 <div className="row gy-3">
                   <div className="col-12 col-sm-6">
-                    <label htmlFor="preco-m2" className="form-label">
-                      Preço por m²
+                    <label htmlFor="preco" className="form-label">
+                      {formatoPreco === "Por m²"
+                        ? "Preço por m²"
+                        : "Preço total"}
                     </label>
                     <input
                       type="number"
                       className="form-control"
-                      id="preco-m2"
+                      id="preco"
                       onChange={(e) => setPreco(e.target.value)}
                       value={preco}
                       required
