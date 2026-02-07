@@ -188,6 +188,12 @@ const Documento = ({ nomeCliente, responsavel, orcamentos }) => {
               </View>
             )}
 
+            {orcamento.infoAdicionais.length > 0 && (
+              <View>
+                <Text style={styles.texto}>{orcamento.infoAdicionais}</Text>
+              </View>
+            )}
+
             <View style={styles.texto}>
               <Text style={styles.preco}>
                 {orcamento.formatoPreco === "Por m²"

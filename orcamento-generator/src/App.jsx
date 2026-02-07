@@ -8,7 +8,7 @@ import "./App.css";
 import imgOrcamento from "../public/img/icon-orcamento.png";
 
 const App = () => {
-  const [showOrcamento, setShowOrcamento] = useState(false);
+  const [showOrcamento, setShowOrcamento] = useState(true);
 
   const [nomeCliente, setNomeCliente] = useState("");
   const [responsavel, setResponsavel] = useState("");
@@ -18,6 +18,7 @@ const App = () => {
   const [preco, setPreco] = useState("");
   const [maoDeObra, setMaoDeObra] = useState([]);
   const [materiais, setMateriais] = useState([]);
+  const [infoAdicionais, setInfoAdicionais] = useState("");
 
   const [orcamentos, setOrcamentos] = useState([]);
 
@@ -52,6 +53,7 @@ const App = () => {
         preco,
         maoDeObra,
         materiais,
+        infoAdicionais,
         temMaoDeObra,
         temArea,
         temMateriais,
@@ -64,6 +66,7 @@ const App = () => {
     setPreco("");
     setMaoDeObra([]);
     setMateriais([]);
+    setInfoAdicionais("");
     setTemArea(opcoes[1]);
     setTemMaoDeObra(opcoes[1]);
     setTemMateriais(opcoes[1]);
@@ -268,8 +271,6 @@ const App = () => {
 
               {temMateriais === opcoes[0] && (
                 <div className="mb-3">
-                  <label htmlFor="">Materiais a serem utilizados</label>
-
                   <div className="input-group ">
                     <input
                       type="text"
@@ -369,6 +370,24 @@ const App = () => {
                       value={responsavel}
                       required
                     ></input>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-3">
+                <div className="row">
+                  <div className="col-12">
+                    <label htmlFor="info-adicionais" className="form-label">
+                      Informações adicionais
+                    </label>
+
+                    <textarea
+                      className="form-control"
+                      value={infoAdicionais}
+                      placeholder="OBS: Bobcat por conta da contratante"
+                      id="info-adicionais"
+                      onChange={(e) => setInfoAdicionais(e.target.value)}
+                    ></textarea>
                   </div>
                 </div>
               </div>
