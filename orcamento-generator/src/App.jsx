@@ -1,14 +1,14 @@
 import React from "react";
 import { NumericFormat } from "react-number-format";
 import Documento from "./components/Documento";
-import { PDFViewer } from "@react-pdf/renderer";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 import imgOrcamento from "../public/img/icon-orcamento.png";
 
 const App = () => {
-  const [showOrcamento, setShowOrcamento] = useState(true);
+  const [showOrcamento, setShowOrcamento] = useState(false);
 
   const [nomeCliente, setNomeCliente] = useState("");
   const [responsavel, setResponsavel] = useState("");
@@ -45,6 +45,8 @@ const App = () => {
   };
 
   const adicionarOrcamento = () => {
+    alert("Orçamento foi adicionado com sucesso!")
+
     setOrcamentos([
       ...orcamentos,
       {
@@ -124,6 +126,7 @@ const App = () => {
                       placeholder="Orçamento de piso industrial"
                       onChange={(e) => setServico(e.target.value)}
                       value={servico}
+                      disabled={showOrcamento === true}
                       required
                     ></input>
                   </div>
@@ -138,6 +141,7 @@ const App = () => {
                       placeholder="Edson"
                       onChange={(e) => setNomeCliente(e.target.value)}
                       value={nomeCliente}
+                      disabled={showOrcamento === true}
                       required
                     ></input>
                   </div>
@@ -159,6 +163,7 @@ const App = () => {
                         onChange={(e) => {
                           setTemArea(e.target.value);
                         }}
+                        disabled={showOrcamento === true}
                       />
                       {opcao}
                     </label>
@@ -197,6 +202,7 @@ const App = () => {
                         onChange={(e) => {
                           setTemMaoDeObra(e.target.value);
                         }}
+                        disabled={showOrcamento === true}
                       />
                       {opcao}
                     </label>
@@ -262,6 +268,7 @@ const App = () => {
                         onChange={(e) => {
                           setTemMateriais(e.target.value);
                         }}
+                        disabled={showOrcamento === true}
                       />
                       {opcao}
                     </label>
@@ -328,6 +335,7 @@ const App = () => {
                         onChange={(e) => {
                           setFormatoPreco(e.target.value);
                         }}
+                        disabled={showOrcamento === true}
                       />
                       {opcao}
                     </label>
@@ -354,6 +362,7 @@ const App = () => {
                       decimalScale={2}
                       prefix={"R$ "}
                       placeholder="R$ 0,00"
+                      disabled={showOrcamento === true}
                       required
                     />
                   </div>
@@ -368,6 +377,7 @@ const App = () => {
                       placeholder="Gilmar"
                       onChange={(e) => setResponsavel(e.target.value)}
                       value={responsavel}
+                      disabled={showOrcamento === true}
                       required
                     ></input>
                   </div>
@@ -387,24 +397,40 @@ const App = () => {
                       placeholder="OBS: Bobcat por conta da contratante"
                       id="info-adicionais"
                       onChange={(e) => setInfoAdicionais(e.target.value)}
+                      disabled={showOrcamento === true}
                     ></textarea>
                   </div>
                 </div>
               </div>
 
               <div className="d-flex flex-column gap-2">
-                <button className="btn btn-primary w-100" type="submit">
+                <button
+                  className="btn btn-primary w-100"
+                  type="submit"
+                  disabled={showOrcamento === true}
+                >
                   Adicionar orçamento
                 </button>
 
                 {orcamentos.length > 0 && (
-                  <button
-                    className="btn btn-success w-100"
-                    type="button"
-                    onClick={finalizarDocumento}
+                  <PDFDownloadLink
+                    document={
+                      <Documento
+                        nomeCliente={nomeCliente}
+                        responsavel={responsavel}
+                        orcamentos={orcamentos}
+                      />
+                    }
+                    fileName="Orcamento.pdf"
                   >
-                    Finalizar documento
-                  </button>
+                    <button
+                      className="btn btn-success w-100"
+                      type="button"
+                      onClick={finalizarDocumento}
+                    >
+                      Finalizar orcamento
+                    </button>
+                  </PDFDownloadLink>
                 )}
               </div>
             </form>
