@@ -360,6 +360,7 @@ const App = () => {
                       allowNegative={false}
                       fixedDecimalScale={true}
                       decimalSeparator=","
+                      thousandSeparator="."
                       decimalScale={2}
                       prefix={"R$ "}
                       placeholder="R$ 0,00"
