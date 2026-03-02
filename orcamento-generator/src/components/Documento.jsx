@@ -154,9 +154,11 @@ const Documento = ({ nomeCliente, responsavel, orcamentos }) => {
 
         {orcamentos.map((orcamento) => (
           <View style={styles.orcamento}>
-            <Text style={[styles.texto, styles.servico]}>
-              {orcamento.servico}
-            </Text>
+            {orcamento.servico.length > 0 && (
+              <Text style={[styles.texto, styles.servico]}>
+                {orcamento.servico}
+              </Text>
+            )}
 
             {orcamento.temArea === "Sim" && (
               <Text style={styles.texto}>

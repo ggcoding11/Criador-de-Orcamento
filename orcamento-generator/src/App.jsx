@@ -127,7 +127,6 @@ const App = () => {
                   <div className="col-12 col-sm-6">
                     <label htmlFor="servico" className="form-label">
                       Descrição do orçamento
-                      <span className="text-danger ms-1">*</span>
                     </label>
                     <input
                       type="text"
@@ -137,7 +136,6 @@ const App = () => {
                       onChange={(e) => setServico(e.target.value)}
                       value={servico}
                       disabled={showOrcamento === true}
-                      required
                     ></input>
                   </div>
                   <div className="col-12 col-sm-6">
@@ -417,7 +415,7 @@ const App = () => {
                   type="submit"
                   disabled={showOrcamento === true}
                 >
-                  Adicionar orçamento
+                  Adicionar o serviço
                 </button>
 
                 {orcamentos.length > 0 && (
@@ -436,7 +434,7 @@ const App = () => {
                       type="button"
                       onClick={finalizarDocumento}
                     >
-                      Finalizar orçamento
+                      Finalizar o orçamento
                     </button>
                   </PDFDownloadLink>
                 )}
