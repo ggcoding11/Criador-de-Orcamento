@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { NumericFormat } from "react-number-format";
 import Documento from "./components/Documento";
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
