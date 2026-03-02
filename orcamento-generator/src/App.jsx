@@ -3,9 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import { NumericFormat } from "react-number-format";
 import Documento from "./components/Documento";
 import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
-import "./App.css";
-
+import { BsXLg } from "react-icons/bs";
 import imgOrcamento from "../public/img/icon-orcamento.png";
+
+import "./App.css";
 
 const App = () => {
   const [showOrcamento, setShowOrcamento] = useState(false);
@@ -248,11 +249,11 @@ const App = () => {
                     {maoDeObra.map((item) => (
                       <div
                         key={item.id}
-                        className="item-mao-de-obra d-flex bg-primary text-white p-2 rounded-3 gap-2"
+                        className="item-mao-de-obra d-flex align-items-center bg-primary text-white p-2 rounded-3 gap-2"
                         onClick={() => deleteItemMO(item.id)}
                       >
                         <span className="">{item.nome}</span>
-                        <i className="bi bi-x-lg"></i>
+                        <BsXLg />
                       </div>
                     ))}
                   </div>
@@ -312,11 +313,11 @@ const App = () => {
                     {materiais.map((item) => (
                       <div
                         key={item.id}
-                        className="item-material d-flex bg-primary text-white p-2 rounded-3 gap-2"
+                        className="item-material d-flex align-items-center bg-primary text-white p-2 rounded-3 gap-2"
                         onClick={() => deleteItemMaterial(item.id)}
                       >
                         <span className="">{item.nome}</span>
-                        <i className="bi bi-x-lg"></i>
+                        <BsXLg />
                       </div>
                     ))}
                   </div>
